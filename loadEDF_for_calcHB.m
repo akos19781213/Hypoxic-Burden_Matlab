@@ -64,7 +64,7 @@ end
 
 fprintf('  Adatok sikeresen átalakítva.\n');
 
-%% 1. SpO2 csatorna kinyerése (INNENTŐL A KÓD VÁLTOZATLAN)
+%% 1. SpO2 csatorna kinyerése
 fprintf('=== SpO2 feldolgozása ===\n');
 
 % Keressük az SpO2 csatornát
@@ -164,6 +164,7 @@ end
 
 
 %% 3. SleepStage (Alvási stádium) generálása
+%% ApneaLink EDF fájlban nincs SleepStage csatorna emiatt statikus 2-es érték beállítva a teljes vizsgálati időre.
 fprintf('=== Alvási stádium (SleepStage) generálása ===\n');
 
 len = length(SpO2.Sig); % Hossz az 1 Hz-es SpO2 jelből
@@ -171,7 +172,7 @@ len = length(SpO2.Sig); % Hossz az 1 Hz-es SpO2 jelből
 SleepStage.Annotation = 2 * ones(1, len); % Vektor, tele 2-esekkel
 SleepStage.Codes = [0 1 2 3 4 5 9];
 SleepStage.Description = {'Wake','Stage 1','Stage 2','Stage 3','Stage 4','REM','Indeterminant'};
-SleepStage.SR = 1; % 1 Hz, ahogy a calcHB várja!
+SleepStage.SR = 1; % 1 Hz
 
 fprintf('  Generálva: %d pont, mind "Stage 2".\n', len);
 fprintf('  Mintavétel: %d Hz.\n', SleepStage.SR);
