@@ -22,19 +22,14 @@ for i = 1:length(fileList)
     fprintf('----------------------------------------\n');
     
     try
-        % 3. LÉPÉS: Beolvassuk az adatokat (A korábban javított függvényt hívjuk)
+        % 3. LÉPÉS: Beolvassuk az adatokat
         [SpO2, RespEvents, SleepStage] = loadEDF_for_calcHB(edfFajlNeve);
         
-        % 4. LÉPÉS: HB (vagy AHI) érték kiszámítása
+        % 4. LÉPÉS: HB érték kiszámítása
         % ITT KELL HÍVNIA AZT A FÜGGVÉNYT, AMI AZ ÉRTÉKET KISZÁMOLJA!
         % Feltételezzük, hogy ez a függvény a 'calcHB' és az első outputja a keresett érték.
         HB_Ertek = NaN; % Alapértelmezett érték, ha a calcHB hívás hiányzik/hibás
         
-        % Kérem cserélje ki az alábbi sort a tényleges számításra!
-        % Példa feltételezett számítással:
-        % [HB_Ertek, ~] = calcHB(SpO2, RespEvents, SleepStage); 
-        
-        % A demonstrációhoz most csak behelyettesítek egy fiktív értéket (pl. az események számát)
         HB_Ertek = calcHB(SpO2, RespEvents, SleepStage, false); % true = legyen ábra
 
         % 5. LÉPÉS: Az eredmények eltárolása
@@ -60,7 +55,6 @@ FinalTable = cell2table(results, 'VariableNames', {'FajlNeve', 'HB_Ertek'});
 FinalTable = sortrows(FinalTable, 'HB_Ertek', 'descend'); 
 
 disp(FinalTable);
-% Illessze be ezt a kódrészletet a disp(FinalTable); sor után.
 
 fprintf('\n=== Eredmények Excel exportálása ===\n');
 
@@ -85,5 +79,6 @@ writetable(FinalTableExcel, excelFileName);
 
 fprintf('  Sikeres exportálás: %s\n', excelFileName);
 fprintf('  A fájl az aktuális mappában található.\n');
+
 
 %% A VÉGE
